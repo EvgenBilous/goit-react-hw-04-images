@@ -2,7 +2,7 @@ import Button from './Button/Button';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Loader from './Loader/Loader';
 import SearchBar from './Searchbar/Searchbar';
-import { Component, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { searchPhoto } from 'services/api';
 
 // export default class App extends Component {
