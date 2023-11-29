@@ -1,34 +1,29 @@
-import { Component } from 'react';
+import { useState, useEffect } from 'react';
 
-export default class Modal extends Component {
-  handleOverlayClick = event => {
+const Modal = ({ src, alt, closeModal }) => {
+  const [overlayClick, setOverlayClick] = useState(true);
+  const handleOverlayClick = event => {
     if (event.target === event.currentTarget) {
-      this.props.closeModal();
+      closeModal();
     }
   };
-
-  handleEscape = event => {
+  const handleEscape = event => {
     if (event.code === 'Escape') {
-      this.props.closeModal();
+      closeModal();
     }
   };
-
-  componentDidMount = () => {
-    document.addEventListener('keydown', this.handleEscape);
-  };
-
-  componentWillUnmount = () => {
-    document.removeEventListener('keydown', this.handleEscape);
-  };
-
-  render() {
-    const { src, alt } = this.props;
-    return (
-      <div onClick={this.handleOverlayClick} className="Overlay">
-        <div className="Modal">
-          <img src={src} alt={alt} />
-        </div>
+  useEffect(() => {
+    document.addEventListener('keydown', handleEscape);
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+    };
+  });
+  return (
+    <div onClick={handleOverlayClick} className="Overlay">
+      <div className="Modal">
+        <img src={src} alt={alt} />
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
+export default Modal;
